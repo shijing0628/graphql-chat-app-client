@@ -11,7 +11,7 @@ npm start
 - If people didn't register or login, he cannot see home page content. (util/dynamicroute control this.)
 - https://www.apollographql.com/docs/react/data/subscriptions/
 
-![](2021-02-10-08-53-50.png)
+![](2021-02-10-08-57-53.png)
 <br>
 
-![](2021-02-10-08-57-53.png)
+![](2021-02-10-17-19-16.png)
