@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Row, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { gql, useSubscription } from "@apollo/client";
@@ -93,15 +93,41 @@ export default function Home({ history }) {
   };
 
   return (
-    <Fragment>
-      <Row className="bg-white justify-content-around mb-1">
+    <div>
+      <div id="container">
+        <div class="steam" id="steam1">
+          {" "}
+        </div>
+        <div class="steam" id="steam2">
+          {" "}
+        </div>
+        <div class="steam" id="steam3">
+          {" "}
+        </div>
+        <div class="steam" id="steam4">
+          {" "}
+        </div>
+        <div id="cup">
+          <div id="cup-body">
+            <div id="cup-shade"></div>
+          </div>
+          <div id="cup-handle"></div>
+        </div>
+        <div id="saucer"></div>
+        <div id="shadow"></div>
+      </div>
+      <Row className="justify-content-around mb-5">
         <Link to="/login">
-          <Button variant="link">Login</Button>
+          <Button variant="link" className="nav-link-button">
+            Login
+          </Button>
         </Link>
         <Link to="/register">
-          <Button variant="link">Register</Button>
+          <Button variant="link" className="nav-link-button">
+            Register
+          </Button>
         </Link>
-        <Button variant="link" onClick={logout}>
+        <Button variant="link" onClick={logout} className="nav-link-button">
           Logout
         </Button>
       </Row>
@@ -109,6 +135,6 @@ export default function Home({ history }) {
         <Users />
         <Messages />
       </Row>
-    </Fragment>
+    </div>
   );
 }

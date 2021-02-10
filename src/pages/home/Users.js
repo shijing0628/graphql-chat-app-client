@@ -63,7 +63,7 @@ export default function Users() {
             className="user-image"
           />
           <div className="d-none d-md-block ml-2">
-            <p className="text-success">{user.username}</p>
+            <p className="name-user">{user.username}</p>
             <p className="font-weight-light">
               {user.latestMessage
                 ? user.latestMessage.content

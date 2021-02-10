@@ -1,10 +1,10 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import { gql, useLazyQuery, useMutation } from '@apollo/client'
-import { Col, Form } from 'react-bootstrap'
+import React, { Fragment, useEffect, useState } from "react";
+import { gql, useLazyQuery, useMutation } from "@apollo/client";
+import { Col, Form } from "react-bootstrap";
 
-import { useMessageDispatch, useMessageState } from '../../context/message'
+import { useMessageDispatch, useMessageState } from "../../context/message";
 
-import Message from './Message'
+import Message from "./Message";
 
 const GET_MESSAGES = gql`
   query getMessages($from: String!) {
@@ -16,7 +16,7 @@ const GET_MESSAGES = gql`
       createdAt
     }
   }
-`
+`;
 
 const SEND_MESSAGE = gql`
   mutation sendMessage($to: String!, $content: String!) {
@@ -28,60 +28,65 @@ const SEND_MESSAGE = gql`
       createdAt
     }
   }
-`
+`;
 
 export default function Messages() {
-  const { users } = useMessageState()
-  const dispatch = useMessageDispatch()
- 
-  const [content, setContent] = useState('')
-  const selectedUser = users?.find((u) => u.selected === true)
-  const messages = selectedUser?.messages
+  const { users } = useMessageState();
+  const dispatch = useMessageDispatch();
+
+  const [content, setContent] = useState("");
+  const selectedUser = users?.find((u) => u.selected === true);
+  const messages = selectedUser?.messages;
 
   const [
     getMessages,
     { loading: messagesLoading, data: messagesData },
-  ] = useLazyQuery(GET_MESSAGES)
+  ] = useLazyQuery(GET_MESSAGES);
 
   const [sendMessage] = useMutation(SEND_MESSAGE, {
     onError: (err) => console.log(err),
-
-  })
+  });
 
   useEffect(() => {
     if (selectedUser && !selectedUser.messages) {
-      getMessages({ variables: { from: selectedUser.username } })
+      getMessages({ variables: { from: selectedUser.username } });
     }
-  }, [selectedUser])
+  }, [selectedUser]);
 
   useEffect(() => {
     if (messagesData) {
       dispatch({
-        type: 'SET_USER_MESSAGES',
+        type: "SET_USER_MESSAGES",
         payload: {
           username: selectedUser.username,
           messages: messagesData.getMessages,
         },
-      })
+      });
     }
-  }, [messagesData])
-  
-  //post a new message
-   const submitMessage = (e) => {
-    e.preventDefault()
+  }, [messagesData]);
 
-    if (content.trim() === '' || !selectedUser) {return setContent('')}
+  //post a new message
+  const submitMessage = (e) => {
+    e.preventDefault();
+
+    if (content.trim() === "" || !selectedUser) {
+      return setContent("");
+    }
 
     // mutation for sending the message
-    sendMessage({ variables: { to: selectedUser.username, content } })
-    setContent('')
-  }
+    sendMessage({ variables: { to: selectedUser.username, content } });
+    setContent("");
+  };
 
-  let selectedChatMarkup
+  let selectedChatMarkup;
   if (!messages && !messagesLoading) {
-    selectedChatMarkup = <p className="info-text">Select a friend</p>
+    selectedChatMarkup = (
+      <p className="info-text send-friend">
+        Select a friend and then start sending a message
+      </p>
+    );
   } else if (messagesLoading) {
-    selectedChatMarkup = <p className="info-text">Loading..</p>
+    selectedChatMarkup = <p className="info-text">Loading..</p>;
   } else if (messages.length > 0) {
     selectedChatMarkup = messages.map((message, index) => (
       <Fragment key={message.uuid}>
@@ -92,9 +97,9 @@ export default function Messages() {
           </div>
         )}
       </Fragment>
-    ))
+    ));
   } else if (messages.length === 0) {
-    selectedChatMarkup = <p>You are now connected! send your first message!</p>
+    selectedChatMarkup = <p>You are now connected! send your first message!</p>;
   }
 
   return (
@@ -121,5 +126,5 @@ export default function Messages() {
         </Form>
       </div>
     </Col>
-  )
+  );
 }
