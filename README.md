@@ -12,3 +12,6 @@ npm start
 - https://www.apollographql.com/docs/react/data/subscriptions/
 
 ![](2021-02-10-08-53-50.png)
+<br>
+
+![](2021-02-10-08-57-53.png)
