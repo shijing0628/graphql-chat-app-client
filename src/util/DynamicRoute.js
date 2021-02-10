@@ -4,7 +4,7 @@ import { Route, Redirect } from "react-router-dom";
 
 function DynamicRoute(props) {
   const { user } = useAuthState();
-  debugger;
+
   if (props.authenticated && !user) {
     return <Redirect to="/login" />;
   } else if (props.guest && user) {
