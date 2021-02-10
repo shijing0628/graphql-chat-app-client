@@ -45,14 +45,7 @@ export default function Messages() {
 
   const [sendMessage] = useMutation(SEND_MESSAGE, {
     onError: (err) => console.log(err),
-    onCompleted:(data)=>
-    dispatch({
-     type:'ADD_MESSAGE',
-     payload:{
-      username:selectedUser.username,
-      message:data.sendMessage
-     }
-    })
+
   })
 
   useEffect(() => {
